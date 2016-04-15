@@ -38,7 +38,7 @@
 	 * added check for getting major version of ios/android os
 	 *
 	 * 2013-02-01 Justin Hunt
-	 * + added a few things for MS Surface 
+	 * + added a few things for MS Surface
 	 *
 	 * 2010-08-20 (v1.9):
 	 *  + Added MSN Explorer Browser (legacy)
@@ -67,7 +67,7 @@
 	 *  + Updated the checkes for Firefox
 	 *  + Added the NOKIA platform
 	 *  + Added Checks for the NOKIA brower(s)
-	 *  
+	 *
 	 * 2009-11-08:
 	 *  + PHP 5.3 Support
 	 *  + Added support for BlackBerry OS and BlackBerry browser
@@ -169,7 +169,7 @@
 		const BROWSER_LYNX = 'Lynx';                              // http://en.wikipedia.org/wiki/Lynx
 		const BROWSER_SAFARI = 'Safari';                          // http://apple.com
 		const BROWSER_IPHONE = 'iPhone';                          // http://apple.com
-		const BROWSER_WINDOWS_PHONE = 'Windows';     
+		const BROWSER_WINDOWS_PHONE = 'Windows';
 		const BROWSER_IPOD = 'iPod';                              // http://apple.com
 		const BROWSER_IPAD = 'iPad';                              // http://apple.com
 		const BROWSER_CHROME = 'Chrome';                          // http://www.google.com/chrome
@@ -184,7 +184,7 @@
 		const BROWSER_MSN = 'MSN Browser';                        // http://explorer.msn.com/
 		const BROWSER_MSNBOT = 'MSN Bot';                         // http://search.msn.com/msnbot.htm
 		                                                          // http://en.wikipedia.org/wiki/Msnbot  (used for Bing as well)
-		
+
 		const BROWSER_NETSCAPE_NAVIGATOR = 'Netscape Navigator';  // http://browser.netscape.com/ (DEPRECATED)
 		const BROWSER_GALEON = 'Galeon';                          // http://galeon.sourceforge.net/ (DEPRECATED)
 		const BROWSER_NETPOSITIVE = 'NetPositive';                // http://en.wikipedia.org/wiki/NetPositive (DEPRECATED)
@@ -196,7 +196,7 @@
 		const PLATFORM_MICROSOFT_SURFACE = 'Microsoft Surface';
 		//added Justin 20140923
 		const PLATFORM_WINDOWS_PHONE = 'Windows Phone';
-		
+
 		const PLATFORM_WINDOWS_CE = 'Windows CE';
 		const PLATFORM_APPLE = 'Apple';
 		const PLATFORM_LINUX = 'Linux';
@@ -213,10 +213,10 @@
 		const PLATFORM_SUNOS = 'SunOS';
 		const PLATFORM_OPENSOLARIS = 'OpenSolaris';
 		const PLATFORM_ANDROID = 'Android';
-		
+
 		const OPERATING_SYSTEM_UNKNOWN = 'unknown';
 
-		public function Browser($useragent="") {
+		public function __construct($useragent="") {
 			$this->reset();
 			if( $useragent != "" ) {
 				$this->setUserAgent($useragent);
@@ -224,6 +224,13 @@
 			else {
 				$this->determine();
 			}
+		}
+
+		/*
+		 * PHP 4 constructor, kept for compatibility
+		 */
+		public function Browser($useragent="") {
+			$this->__construct($useragent);
 		}
 
 		/**
@@ -247,7 +254,7 @@
 		* @return True if the browser is the specified browser
 		*/
 		function isBrowser($browserName) { return( 0 == strcasecmp($this->_browser_name, trim($browserName))); }
-		
+
 		/**
 		* Check to see if this is a nexus 7
 		* @return True if this is a nexus 7
@@ -279,13 +286,13 @@
 		* @return string Version of the browser (will only contain alpha-numeric characters and a period)
 		*/
 		public function getVersion() { return $this->_version; }
-		
-		
+
+
 		/**
 		* Get Major Version of Android.
-		* @return Major Version of the browser 
+		* @return Major Version of the browser
 		*/
-		public function getAndroidMajorVersion() { 
+		public function getAndroidMajorVersion() {
 			$androidPos = stripos($this->_agent,'Android') ;
 			if( $androidPos !== false ) {
 			    $aversion = substr($this->_agent, $androidPos+8,1);
@@ -295,9 +302,9 @@
 		}
 		/**
 		* Get Major Version of iOS.
-		* @return Major Version of the browser 
+		* @return Major Version of the browser
 		*/
-		public function getIOSMajorVersion() { 
+		public function getIOSMajorVersion() {
 			$iosPos = stripos($this->_agent,' OS') ;
 			if( $iosPos !== false ) {
 			    $iosversion = substr($this->_agent, $iosPos+4,1);
@@ -305,7 +312,7 @@
 		    }
 		    return false;
 		}
-		
+
 		/**
 		* Set the version of the browser
 		* @param $version The version of the Browser
@@ -434,7 +441,7 @@
 
 				// WebKit base check (post mobile and others)
 				$this->checkBrowserSafari() ||
-				
+
 				// everyone else
 				$this->checkBrowserNetPositive() ||
 				$this->checkBrowserFirebird() ||
@@ -513,8 +520,8 @@
 				return true;
 			}
 			return false;
-		}	    
-	    
+		}
+
 	    /**
 	     * Determine if the browser is the W3C Validator or not (last updated 1.7)
 	     * @return boolean True if the browser is the W3C Validator otherwise false
@@ -994,7 +1001,7 @@
 		    }
 		    return false;
 	    }
-		
+
 		  /**
 	     * Determine if the browser is iPhone or not (last updated 1.7)
 	     * @return boolean True if the browser is iPhone otherwise false
